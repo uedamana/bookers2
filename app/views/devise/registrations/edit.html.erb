@@ -1,0 +1,23 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+<%= form_with model: @user do |f| %>
+  <div class="field">
+    <%= f.label :Name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
+
+  <div class="inputImage">Image</label>
+  <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+
+  <div class="field">
+    <%= f.label :Introduction %><br />
+    <%= f.text_area :introduction, autofocus: true %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Update User" %>
+  </div>
+<% end %>
