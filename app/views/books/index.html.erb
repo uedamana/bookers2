@@ -33,19 +33,19 @@
               <% if book.favorited_by?(current_user) %>
                 <p>
                   <%= link_to book_favorites_path(book), method: :delete do %>
-                    ♥<%= book.favorites.count %>
+                    <i class="fa-solid fa-heart"><%= book.favorites.count %></i>
                   <% end %>
                 </p>
               <% else %>
                 <p>
                   <%= link_to book_favorites_path(book), method: :post do %>
-                    ♡<%= book.favorites.count %>
+                    <i class="fa-regular fa-heart"><%= book.favorites.count %></i>
                   <% end %>
                 </p>
               <% end %>
             </td>
             <td>
-              <p><%= link_to "#{book.book_comments.count} コメント", book_path(book.id) %></p>
+              コメント件数：<%= book.book_comments.count %>
             </td>
           </tr>
           <% end %>

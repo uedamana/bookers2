@@ -33,11 +33,11 @@
             <td>
               <% if @book.favorited_by?(current_user) %>
                 <%= link_to book_favorites_path(@book), method: :delete do %>
-                  ♥<%= @book.favorites.count %>
+                  <i class="fa-solid fa-heart"><%= @book.favorites.count %></i>
                 <% end %>
               <% else %>
                 <%= link_to book_favorites_path(@book), method: :post do %>
-                  ♡<%= @book.favorites.count %>
+                  <i class="fa-regular fa-heart"><%= @book.favorites.count %></i>
                 <% end %>
               <% end %>
             </td>
@@ -48,19 +48,31 @@
         </tbody>
       </table>
       <div>
-        <% @book.book_comments.each do |book_comment| %>
-          <%= image_tag book_comment.user.get_profile_image(100,100) %>
-          <%= book_comment.comment %>
-          <% if book_comment.user == current_user %>
-            <%= link_to "Destroy", book_book_comments_path(book_comment.book, book_comment), method: :delete, class: "btn btn-sm btn-danger destroy_book_38347" %>
+        <table>
+          <tbody>
+            <tr>
+              <% @book.book_comments.each do |book_comment| %>
+              <td>
+                <%= image_tag book_comment.user.get_profile_image(100,100) %>
+                <br>
+                <%= book_comment.user.name %>
+              </td>
+              <td>
+                <%= book_comment.comment %>
+              </td>
+              <td>
+                <% if book_comment.user == current_user %>
+                  <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete, class: "btn btn-sm btn-danger destroy_book_38347" %>
+                <% end %>
+              </td>
+            </tr>
           <% end %>
-          <br>
-          <%= book_comment.user.name %>
-        <% end %>
+          </tbody>
+        </table>
       </div>
       <div>
         <%= form_with model: [@book, @book_comment] do |f| %>
-          <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+          <%= f.text_area :comment, rows: '5', cols: '90' %>
           <br>
           <%= f.submit "送信" %>
         <% end %>
